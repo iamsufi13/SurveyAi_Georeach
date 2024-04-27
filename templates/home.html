@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <style>
+      /* CSS styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0; /* Grey background */
+        color: #333; /* Dark grey text color */
+        text-align: center; /* Center align all text */
+      }
+
+      header,
+      footer {
+        background-color: #333; /* Dark grey background */
+        color: #fff; /* White text color */
+        padding: 10px 0; /* Thin padding for header and footer */
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0; /* Remove default margin for h1 */
+        color: #fff; /* White text color */
+      }
+
+      .survey-description {
+        margin-top: 20px; /* Add space between paragraphs */
+        color: #333; /* Dark grey text color */
+      }
+
+      .survey-button {
+        display: block;
+        width: 60%;
+        margin: 20px auto; /* Center align buttons */
+        padding: 10px; /* Set padding for button */
+        border: none;
+        border-radius: 8px;
+        background-color: #4caf50; /* Green color */
+        color: #fff; /* White text color */
+        font-size: 14px; /* Font size for button */
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .survey-button:hover {
+        background-color: #45a049; /* Darker green color on hover */
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to Survey AI</h1>
+    </header>
+    <p class="survey-description">
+      Click the button below to generate Healthcare Survey:
+    </p>
+    <form action="{% url 'generate_healthcare_questions_json' %}" method="get">
+      <button class="survey-button" type="submit">
+        Generate Healthcare Survey
+      </button>
+    </form>
+    <p class="survey-description">
+      Click the button below to generate Hospitality and Travel Survey:
+    </p>
+    <form action="{% url 'generate_hospitality_travel_json' %}" method="get">
+      <button class="survey-button" type="submit">
+        Generate Hospitality and Travel Survey
+      </button>
+    </form>
+    <p class="survey-description">
+      Click the button below to generate Education Survey:
+    </p>
+    <form action="{% url 'generate_education_questions_json' %}" method="get">
+      <button class="survey-button" type="submit">
+        Generate Education Survey
+      </button>
+    </form>
+    <p class="survey-description">
+      Click the button below to generate Customer Satisfaction Survey:
+    </p>
+    <form
+      action="{% url 'generate_employee_satisfaction_questions_json' %}"
+      method="get"
+    >
+      <button class="survey-button" type="submit">
+        Generate Employee Satisfaction Survey
+      </button>
+    </form>
+    <footer>
+      <p>&copy; 2024 Survey AI. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

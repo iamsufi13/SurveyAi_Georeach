@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sentiment Analysis Results</title>
+    <style>
+      /* CSS styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0; /* Grey background */
+        color: #333; /* Dark grey text color */
+      }
+
+      header {
+        background-color: #333; /* Dark grey header background */
+        color: #fff; /* White text color */
+        padding: 10px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333; /* Dark grey text color */
+      }
+
+      .result {
+        margin-top: 20px;
+      }
+
+      .result p {
+        margin: 0;
+        font-weight: bold;
+      }
+
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Sentiment Analysis Results</header>
+
+    <div class="container">
+      <h2>Overall Sentiment Analysis</h2>
+      <div class="result" id="sentiment-result"></div>
+    </div>
+
+    <script>
+      fetch("/surveyai/sentiment_analysis/")
+        .then((response) => response.json())
+        .then((data) => {
+          const sentimentResult = document.getElementById("sentiment-result");
+          if (data.error) {
+            sentimentResult.innerHTML = `<p class="error">${data.error}</p>`;
+          } else {
+            sentimentResult.innerHTML = `
+                <p>Average Sentiment Percentage: ${data.average_sentiment_percent}%</p>
+                <p>Conclusion: ${data.conclusion}</p>
+            `;
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          response.text().then((text) => {
+            console.log("Response content:", text);
+          });
+          const sentimentResult = document.getElementById("sentiment-result");
+          sentimentResult.innerHTML = `<p class="error">An error occurred while fetching sentiment analysis results.</p>`;
+        });
+    </script>
+  </body>
+</html>

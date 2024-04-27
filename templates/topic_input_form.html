@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Survey Topic Input</title>
+  </head>
+  <body>
+    <h1>Enter Survey Topic</h1>
+    <form method="post">
+      {% csrf_token %}
+      <input type="text" name="topic" placeholder="Enter survey topic" />
+      <button type="submit">Start Survey</button>
+    </form>
+  </body>
+</html>

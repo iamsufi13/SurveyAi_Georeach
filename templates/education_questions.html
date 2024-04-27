@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Education Survey Questions</title>
+    <style>
+      /* CSS styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0; /* Grey background */
+        color: #333; /* Dark grey text color */
+      }
+
+      header {
+        background-color: #333; /* Dark grey header background */
+        color: #fff; /* White text color */
+        padding: 10px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333; /* Dark grey text color */
+      }
+
+      .question {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+      }
+
+      .question p {
+        margin: 0;
+        font-weight: bold;
+        color: #555; /* Grey color */
+      }
+
+      .options {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 10px;
+      }
+
+      .options li {
+        margin-bottom: 5px;
+        color: #777; /* Light grey color */
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .button-container button {
+        padding: 8px 16px; /* Adjusted padding for smaller buttons */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        color: #fff;
+        transition: background-color 0.3s;
+      }
+
+      .send-button {
+        background-color: #4caf50; /* Green color */
+      }
+
+      .send-button:hover {
+        background-color: #45a049;
+      }
+
+      .back-button {
+        background-color: #ccc; /* Grey color */
+      }
+
+      .back-button:hover {
+        background-color: #b3b3b3;
+      }
+
+      .home-button {
+        background-color: #007bff; /* Blue color */
+      }
+
+      .home-button:hover {
+        background-color: #0056b3;
+      }
+
+      .rating-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .rating-value {
+        font-size: 14px;
+        color: #777;
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Survey AI - Education Survey</header>
+
+    <div class="container">
+      <h2>Education Survey Questions</h2>
+      <div id="questions-container"></div>
+      <div class="button-container">
+        <button class="back-button">Back</button>
+        <a href="{% url 'home' %}" class="home-button">Home</a>
+        <!-- Corrected home button -->
+        <button class="send-button">Send</button>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const questionsContainer = document.getElementById(
+          "questions-container"
+        );
+
+        const jsonResponse =
+          '{"education_questions": [{"question_number": 1, "question_type": "dropdown", "question_text": "Select the most important aspect of education among:", "options": ["education", "school", "learning", "students", "teachers", "curriculum", "college", "university", "classroom"]}, {"question_number": 2, "question_type": "rating_scale", "question_text": "On a scale of 1 to 5, how important is education in your life?", "options": [1, 2, 3, 4, 5]}, {"question_number": 3, "question_type": "dropdown", "question_text": "Select the most important aspect of education among:", "options": ["students", "teachers", "school", "learning", "curriculum", "college", "university", "classroom", "education"]}, {"question_number": 4, "question_type": "rating_scale", "question_text": "On a scale of 1 to 5, how important are teachers in the education system?", "options": [1, 2, 3, 4, 5]}, {"question_number": 5, "question_type": "dropdown", "question_text": "Select the most important aspect of education among:", "options": ["learning", "students", "teachers", "school", "curriculum", "college", "university", "classroom", "education"]}, {"question_number": 6, "question_type": "rating_scale", "question_text": "On a scale of 1 to 5, how important is learning for personal development?", "options": [1, 2, 3, 4, 5]}, {"question_number": 7, "question_type": "rating_scale", "question_text": "On a scale of 1 to 5, how important is college education for career success?", "options": [1, 2, 3, 4, 5]}, {"question_number": 8, "question_type": "multiple_choice", "question_text": "What is the most important aspect of education among students, teachers, curriculum?", "options": ["students", "teachers", "curriculum"]}, {"question_number": 9, "question_type": "rating_scale", "question_text": "On a scale of 1 to 5, how important is university education for personal growth?", "options": [1, 2, 3, 4, 5]}, {"question_number": 10, "question_type": "dropdown", "question_text": "Select the most important aspect of education among:", "options": ["classroom", "learning", "students", "teachers", "school", "curriculum", "college", "university", "education"]}]}';
+
+        const responseData = JSON.parse(jsonResponse);
+
+        const educationQuestions = responseData.education_questions;
+
+        educationQuestions.forEach((question) => {
+          const questionElement = document.createElement("div");
+          questionElement.classList.add("question");
+          questionElement.innerHTML = `
+                <p><b>Question ${question.question_number}:</b> ${question.question_text}</p>
+            `;
+          if (question.options) {
+            const optionsList = document.createElement("ul");
+            optionsList.classList.add("options");
+            if (question.question_type === "multiple_choice") {
+              question.options.forEach((option) => {
+                const optionItem = document.createElement("li");
+                const input = document.createElement("input");
+                input.type = "radio";
+                input.name = `question_${question.question_number}`;
+                input.value = option;
+                optionItem.appendChild(input);
+                optionItem.appendChild(document.createTextNode(option));
+                optionsList.appendChild(optionItem);
+              });
+            } else if (question.question_type === "dropdown") {
+              const select = document.createElement("select");
+              select.name = `question_${question.question_number}`;
+              question.options.forEach((option) => {
+                const optionElement = document.createElement("option");
+                optionElement.value = option;
+                optionElement.textContent = option;
+                select.appendChild(optionElement);
+              });
+              optionsList.appendChild(select);
+            } else if (question.question_type === "rating_scale") {
+              const ratingContainer = document.createElement("div");
+              ratingContainer.classList.add("rating-container");
+
+              const ratingInput = document.createElement("input");
+              ratingInput.type = "range";
+              ratingInput.name = `question_${question.question_number}`;
+              ratingInput.min = 1;
+              ratingInput.max = 5;
+
+              const ratingValue = document.createElement("span");
+              ratingValue.textContent = "3"; // Default value
+              ratingValue.classList.add("rating-value");
+
+              ratingInput.addEventListener("input", function () {
+                ratingValue.textContent = this.value;
+              });
+
+              ratingContainer.appendChild(ratingInput);
+              ratingContainer.appendChild(ratingValue);
+              optionsList.appendChild(ratingContainer);
+            }
+            questionElement.appendChild(optionsList);
+          }
+          questionsContainer.appendChild(questionElement);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,505 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Survey preview</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{% static '/secondary_assets/font/iconsmind-s/css/iconsminds.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static '/secondary_assets/font/simple-line-icons/css/simple-line-icons.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static '/secondary_assets/css/vendor/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static '/secondary_assets/css/vendor/bootstrap.rtl.only.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static '/secondary_assets/css/vendor/component-custom-switch.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static '/secondary_assets/css/vendor/perfect-scrollbar.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static '/secondary_assets/css/dore.light.bluenavy.min.css' %}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{% static '/secondary_assets/css/vendor/nouislider.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static '/secondary_assets/css/vendor/bootstrap-stars.css' %}"
+    />
+    {% comment %}
+    <link
+      rel="stylesheet"
+      href="{% static '/secondary_assetscss/main.css' %}"
+    />
+    {% endcomment %}
+    <link
+      rel="stylesheet"
+      href="{% static '/secondary_assets/css/rating_scale.css' %}"
+    />
+    <style>
+      .rating-item input[type="range"] {
+        width: 100px; /* Adjust the width of the slider */
+        height: 5px; /* Adjust the height of the slider */
+        appearance: none;
+        background-color: #ccc;
+        border-radius: 5px;
+        outline: none;
+        margin-right: 10px; /* Adjust the spacing between the slider and the label */
+      }
+
+      .rating-item input[type="range"]::-webkit-slider-thumb {
+        appearance: none;
+        width: 0; /* Set the width of the slider thumb to 0 to hide it */
+      }
+
+      .rating-item input[type="range"]::-moz-range-thumb {
+        appearance: none;
+        width: 0; /* Set the width of the slider thumb to 0 to hide it */
+      }
+    </style>
+  </head>
+
+  <body id="app-container" class="menu-hidden show-spinner">
+    <nav class="navbar fixed-top">
+      <div class="d-flex align-items-center navbar-left">
+        <a href="#" class="menu-button d-none d-md-block">
+          <svg
+            class="sub"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 26 17"
+          >
+            <rect x="0" y="0.5" width="26" height="1" />
+            <rect x="0" y="7.5" width="26" height="1" />
+            <rect x="0" y="15.5" width="26" height="1" />
+          </svg>
+        </a>
+
+        <a href="#" class="menu-button-mobile d-xs-block d-sm-block d-md-none">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 17">
+            <rect x="0.5" y="0.5" width="25" height="1" />
+            <rect x="0.5" y="7.5" width="25" height="1" />
+            <rect x="0.5" y="15.5" width="25" height="1" />
+          </svg>
+        </a>
+
+        <div class="search" data-search-path="Pages.Search.html?q=">
+          <input placeholder="Search..." />
+          <span class="search-icon">
+            <i class="simple-icon-magnifier"></i>
+          </span>
+        </div>
+      </div>
+
+      <a class="navbar-logo" href="Dashboard.Default.html">
+        <span class="logo d-none d-xs-block"></span>
+        <span class="logo-mobile d-block d-xs-none"></span>
+      </a>
+
+      <div class="navbar-right">
+        <div class="header-icons d-inline-block align-middle">
+          <div class="position-relative d-none d-sm-inline-block">
+            <button
+              class="header-icon btn btn-empty"
+              type="button"
+              id="iconMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="simple-icon-grid"></i>
+            </button>
+            <div
+              class="dropdown-menu dropdown-menu-right mt-3 position-absolute"
+              id="iconMenuDropdown"
+            >
+              <a href="#" class="icon-menu-item">
+                <i class="iconsminds-equalizer d-block"></i>
+                <span>Settings</span>
+              </a>
+
+              <a href="#" class="icon-menu-item">
+                <i class="iconsminds-male-female d-block"></i>
+                <span>Users</span>
+              </a>
+
+              <a href="#" class="icon-menu-item">
+                <i class="iconsminds-puzzle d-block"></i>
+                <span>Components</span>
+              </a>
+
+              <a href="#" class="icon-menu-item">
+                <i class="iconsminds-bar-chart-4 d-block"></i>
+                <span>Profits</span>
+              </a>
+
+              <a href="#" class="icon-menu-item">
+                <i class="iconsminds-file d-block"></i>
+                <span>Surveys</span>
+              </a>
+
+              <a href="#" class="icon-menu-item">
+                <i class="iconsminds-suitcase d-block"></i>
+                <span>Tasks</span>
+              </a>
+            </div>
+          </div>
+
+          <button
+            class="header-icon btn btn-empty d-none d-sm-inline-block"
+            type="button"
+            id="fullScreenButton"
+          >
+            <i class="simple-icon-size-fullscreen"></i>
+            <i class="simple-icon-size-actual"></i>
+          </button>
+        </div>
+
+        <div class="user d-inline-block">
+          <button
+            class="btn btn-empty p-0"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <span class="name">user@123.gmail.com</span>
+            <span>
+              <img
+                alt="Profile Picture"
+                src="/static/secondary_assets/images/Authentication_pic.png"
+              />
+            </span>
+          </button>
+
+          <div class="dropdown-menu dropdown-menu-right mt-3">
+            <a class="dropdown-item" href="#">Account</a>
+            <a class="dropdown-item" href="#">Features</a>
+            <a class="dropdown-item" href="#">History</a>
+            <a class="dropdown-item" href="#">Support</a>
+            <a class="dropdown-item" href="#">Sign out</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="menu">
+      <div class="main-menu">
+        <div class="scroll">
+          <ul class="list-unstyled">
+            <li class="active">
+              <a href="#menu">
+                <i class="iconsminds-three-arrow-fork"></i> Menu
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sub-menu">
+        <div class="scroll">
+          <h1 style="margin-left: 15px">Create a survey</h1>
+          <div class="dropdown-divider"></div>
+          <ul class="list-unstyled" data-link="menu" id="menuTypes">
+            <li>
+              <div class="card d-flex flex-row mb-3">
+                <div class="d-flex flex-grow-1 min-width-zero">
+                  <div class="card-body">
+                    <a href="Build_withAI.html" class="icon-menu-item">
+                      <i class="simple-icon-screen-desktop"></i>
+                      <span class="d-inline-block">Build with AI</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="card d-flex flex-row mb-3">
+                <div class="d-flex flex-grow-1 min-width-zero">
+                  <div class="card-body">
+                    <a href="Build_Scratch.html">
+                      <i class="simple-icon-docs"></i>
+                      <span class="d-inline-block">Start from scratch</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="card d-flex flex-row mb-3">
+                <div class="d-flex flex-grow-1 min-width-zero">
+                  <div class="card-body text-centre">
+                    <a href="#">
+                      <i class="simple-icon-picture"></i>
+                      <span class="d-inline-block">Start from </span>
+                      <span>template</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="card d-flex flex-row mb-3">
+                <div class="d-flex flex-grow-1 min-width-zero">
+                  <div class="card-body">
+                    <a href="#">
+                      <i class="simple-icon-doc"></i>
+                      <span class="d-inline-block">Copy a past survey</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <div class="dropdown-divider"></div>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <h1>Survey Preview</h1>
+            <nav
+              class="breadcrumb-container d-none d-sm-block d-lg-inline-block"
+              aria-label="breadcrumb"
+            >
+              <ol class="breadcrumb pt-0">
+                <li class="breadcrumb-item">
+                  <a href="../index.html">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="#">Plan & pricing</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                  <a href="Create_survey.html">Create Surveys</a>
+                </li>
+              </ol>
+            </nav>
+            <div class="separator mb-5"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4">
+              <div class="card-body">
+                <div class="jumbotron">
+                  <div id="question_container"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="page-footer">
+      <div class="footer-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <p class="mb-0 text-muted">Sufiyan</p>
+            </div>
+            <div class="col-sm-6 d-none d-sm-block">
+              <ul class="breadcrumb pt-0 pr-0 float-right">
+                <li class="breadcrumb-item mb-0">
+                  <a href="../index.html" class="btn-link">Home</a>
+                </li>
+                <li class="breadcrumb-item mb-0">
+                  <a href="#" class="btn-link">Plan & pricing</a>
+                </li>
+                <li class="breadcrumb-item mb-0">
+                  <a href="../Contact-us.html" class="btn-link">Contact us </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="{% static '/secondary_assets/js/vendor/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static '/secondary_assets/js/vendor/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static '/secondary_assets/js/vendor/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static '/secondary_assets/js/vendor/mousetrap.min.js' %}"></script>
+    <script src="{% static '/secondary_assets/js/vendor/nouislider.min.js' %}"></script>
+    <script src="{% static '/secondary_assets/js/vendor/jquery.barrating.min.js' %}"></script>
+    <script src="{% static '/secondary_assets/js/dore.script.js' %}"></script>
+    <script src="{% static '/secondary_assets/js/scripts.js' %}"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const questionsContainer =
+          document.getElementById("question_container");
+
+        const jsonResponse =
+          '{"healthcare_questions": [{"question_number": 1, "question_type": "multiple_choice", "question_text": "Select the most important aspect of healthcare among:", "options": ["patient", "treatment", "care", "disease", "hospital", "medicine", "health", "wellness", "doctor"]}, {"question_number": 2, "question_type": "rating_scale", "question_text": "On a scale of 1 to 5, how important is health in healthcare?", "options": [1, 2, 3, 4, 5]}, {"question_number": 3, "question_type": "multiple_choice", "question_text": "Select the most important aspect of healthcare among:", "options": ["treatment", "patient", "disease", "wellness", "medicine", "hospital", "health", "doctor", "care"]}, {"question_number": 4, "question_type": "rating_scale", "question_text": "On a scale of 1 to 5, how important is hospital in healthcare?", "options": [1, 2, 3, 4, 5]}, {"question_number": 5, "question_type": "multiple_choice", "question_text": "Select the most important aspect of healthcare among:", "options": ["patient", "health", "medicine", "wellness", "doctor", "disease", "care", "hospital", "treatment"]}, {"question_number": 6, "question_type": "rating_scale", "question_text": "On a scale of 1 to 5, how important is care in healthcare?", "options": [1, 2, 3, 4, 5]}, {"question_number": 7, "question_type": "rating_scale", "question_text": "On a scale of 1 to 5, how important is care in healthcare?", "options": [1, 2, 3, 4, 5]}, {"question_number": 8, "question_type": "radio", "question_text": "What is the most important aspect of healthcare among health, medicine, patient?", "options": ["Yes", "No"]}, {"question_number": 9, "question_type": "rating_scale", "question_text": "On a scale of 1 to 5, how important is hospital in healthcare?", "options": [1, 2, 3, 4, 5]}, {"question_number": 10, "question_type": "dropdown", "question_text": "Select the most important aspect of healthcare among:", "options": ["care", "health", "disease", "wellness", "hospital", "doctor", "medicine", "patient", "treatment"]}]}';
+
+        const responseData = JSON.parse(jsonResponse);
+
+        const healthcareQuestions = responseData.healthcare_questions;
+
+        healthcareQuestions.forEach((question, index) => {
+          setTimeout(() => {
+            const questionElement = document.createElement("div");
+            questionElement.classList.add("question");
+            questionElement.innerHTML = `<p><b>Question ${question.question_number}:</b> ${question.question_text}</p>`;
+            questionsContainer.appendChild(questionElement);
+
+            if (question.options) {
+              const optionsList = document.createElement("ul");
+              optionsList.classList.add("options");
+              if (question.question_type === "multiple_choice") {
+                question.options.forEach((option, index) => {
+                  const optionItem = document.createElement("li");
+                  optionItem.classList.add(
+                    "custom-control",
+                    "custom-checkbox",
+                    "mb-4"
+                  );
+                  const input = document.createElement("input");
+                  input.type = "checkbox";
+                  input.classList.add("custom-control-input");
+                  input.name = `question_${question.question_number}`;
+                  input.value = option;
+                  input.id = `option_${question.question_number}_${index + 1}`;
+                  const label = document.createElement("label");
+                  label.classList.add("custom-control-label");
+                  label.htmlFor = `option_${question.question_number}_${
+                    index + 1
+                  }`;
+                  label.textContent = option;
+                  optionItem.appendChild(input);
+                  optionItem.appendChild(label);
+                  optionsList.appendChild(optionItem);
+                });
+              } else if (question.question_type === "radio") {
+                question.options.forEach((option, index) => {
+                  const optionItem = document.createElement("li");
+                  optionItem.classList.add("custom-control", "custom-radio");
+                  const input = document.createElement("input");
+                  input.type = "radio";
+                  input.classList.add("custom-control-input");
+                  input.name = `question_${question.question_number}`;
+                  input.value = option;
+                  input.id = `option_${question.question_number}_${index + 1}`;
+                  const label = document.createElement("label");
+                  label.classList.add("custom-control-label");
+                  label.htmlFor = `option_${question.question_number}_${
+                    index + 1
+                  }`;
+                  label.textContent = option;
+                  optionItem.appendChild(input);
+                  optionItem.appendChild(label);
+                  optionsList.appendChild(optionItem);
+                });
+              } else if (question.question_type === "rating_scale") {
+                const optionItem = document.createElement("li");
+                optionItem.classList.add("rating-item");
+                const input = document.createElement("input");
+                input.type = "range";
+                input.classList.add("custom-range");
+                input.name = `question_${question.question_number}`;
+                input.min = "1";
+                input.max = "5";
+                input.step = "1";
+                const valueLabel = document.createElement("span");
+                valueLabel.textContent = "1"; // Initial value
+                input.addEventListener("input", function () {
+                  valueLabel.textContent = this.value;
+                });
+                optionItem.appendChild(input);
+                optionItem.appendChild(valueLabel);
+                optionsList.appendChild(optionItem);
+              } else if (question.question_type === "dropdown") {
+                const optionItem = document.createElement("li");
+                optionItem.classList.add("dropdown-item");
+                const select = document.createElement("select");
+                select.classList.add("custom-select");
+                select.name = `question_${question.question_number}`;
+                question.options.forEach((option) => {
+                  const optionElement = document.createElement("option");
+                  optionElement.value = option;
+                  optionElement.textContent = option;
+                  select.appendChild(optionElement);
+                });
+                optionItem.appendChild(select);
+                optionsList.appendChild(optionItem);
+              }
+              questionElement.appendChild(optionsList);
+            }
+            questionElement.style.opacity = "1"; // Show the question after animation
+          }, index * 1000); // Adjust the delay between questions
+        });
+      });
+
+      const form = document.getElementById("healthcare-form");
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const formData = new FormData(form);
+        const jsonData = {};
+        formData.forEach((value, key) => {
+          jsonData[key] = value;
+        });
+        fetch("{% url 'store_healthcare_answers' %}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrf_token, // Include your CSRF token here
+          },
+          body: JSON.stringify({ healthcare_responses: jsonData }),
+        })
+          .then((response) => {
+            if (response.ok) {
+              alert("Responses stored successfully!");
+            } else {
+              throw new Error("Failed to store responses");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("An error occurred while storing responses");
+          });
+      });
+    </script>
+
+    <style>
+      .rating-item input[type="range"] {
+        width: 100px; /* Adjust the width of the slider */
+        height: 5px; /* Adjust the height of the slider */
+        appearance: none;
+        background-color: #ccc;
+        border-radius: 5px;
+        outline: none;
+        margin-right: 10px; /* Adjust the spacing between the slider and the label */
+      }
+
+      .rating-item input[type="range"]::-webkit-slider-thumb {
+        appearance: none;
+        width: 0; /* Set the width of the slider thumb to 0 to hide it */
+      }
+
+      .rating-item input[type="range"]::-moz-range-thumb {
+        appearance: none;
+        width: 0; /* Set the width of the slider thumb to 0 to hide it */
+      }
+    </style>
+  </body>
+</html>

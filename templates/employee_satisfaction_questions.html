@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Satisfaction Survey</title>
+    <style>
+      /* CSS styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0; /* Grey background */
+        color: #333; /* Dark grey text color */
+      }
+
+      header {
+        background-color: #333; /* Dark grey header background */
+        color: #fff; /* White text color */
+        padding: 10px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333; /* Dark grey text color */
+      }
+
+      .question {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        opacity: 0; /* Initially hide the question */
+      }
+
+      .question p {
+        margin: 0;
+        font-weight: bold;
+        color: #555; /* Grey color */
+      }
+
+      .options {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 10px;
+      }
+
+      .options li {
+        margin-bottom: 5px;
+        color: #777; /* Light grey color */
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .button-container button {
+        padding: 8px 16px; /* Adjusted padding for smaller buttons */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        color: #fff;
+        transition: background-color 0.3s;
+      }
+
+      .send-button {
+        background-color: #4caf50; /* Green color */
+      }
+
+      .send-button:hover {
+        background-color: #45a049;
+      }
+
+      .back-button {
+        background-color: #ccc; /* Grey color */
+      }
+
+      .back-button:hover {
+        background-color: #b3b3b3;
+      }
+
+      .home-button {
+        background-color: #007bff; /* Blue color */
+      }
+
+      .home-button:hover {
+        background-color: #0056b3;
+      }
+
+      .rating-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .rating-value {
+        font-size: 14px;
+        color: #777;
+        margin-left: 10px;
+      }
+
+      /* Typing animation */
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+      }
+
+      
+
+    </style>
+  </head>
+  <body>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Simulate an API request or any async operation
+        setTimeout(() => {
+            hideLoader();
+            showContent();
+        }, 3000); // Replace with your actual data loading logic and time
+      
+        function hideLoader() {
+            const loader = document.getElementById("loader");
+            loader.style.display = "none";
+        }
+      
+        function showContent() {
+            const content = document.getElementById("content");
+            content.style.display = "block";
+        }
+      });
+    </script>
+    <div id="loader" class="loader"></div>
+          <div id="content" class="hidden">
+    <header>Survey AI - Employee Satisfaction Survey</header>
+
+    <div class="container">
+      <h2>Employee Satisfaction Survey</h2>
+      <div id="questions-container"></div>
+      <div class="button-container">
+        <button class="back-button">Back</button>
+        <a href="{% url 'home' %}" class="home-button">Home</a>
+        <!-- Corrected home button -->
+        <!-- <button class="send-button">Send</button> -->
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const questionsContainer = document.getElementById(
+          "questions-container"
+        );
+
+        const jsonResponse =
+          '{"employee_satisfaction_questions": [{"question_number": 1, "question_type": "dropdown", "question_text": "Select the most important aspect of employee satisfaction among:", "options": ["job", "workplace", "colleagues", "management", "benefits", "culture", "communication", "growth", "recognition"]}, {"question_number": 2, "question_type": "rating_scale", "question_text": "On a scale of 1 to 5, how satisfied are you with job in your workplace?", "options": [1, 2, 3, 4, 5]}, {"question_number": 3, "question_type": "dropdown", "question_text": "Select the most important aspect of employee satisfaction among:", "options": ["growth", "communication", "workplace", "management", "job", "colleagues", "benefits", "culture", "recognition"]}, {"question_number": 4, "question_type": "rating_scale", "question_text": "On a scale of 1 to 5, how satisfied are you with benefits in your workplace?", "options": [1, 2, 3, 4, 5]}, {"question_number": 5, "question_type": "dropdown", "question_text": "Select the most important aspect of employee satisfaction among:", "options": ["recognition", "job", "management", "workplace", "benefits", "culture", "communication", "growth", "colleagues"]}, {"question_number": 6, "question_type": "rating_scale", "question_text": "On a scale of 1 to 5, how satisfied are you with culture in your workplace?", "options": [1, 2, 3, 4, 5]}, {"question_number": 7, "question_type": "rating_scale", "question_text": "On a scale of 1 to 5, how satisfied are you with communication in your workplace?", "options": [1, 2, 3, 4, 5]}, {"question_number": 8, "question_type": "multiple_choice", "question_text": "What is the most important aspect of employee satisfaction among recognition, growth, job?", "options": ["recognition", "growth", "job"]}, {"question_number": 9, "question_type": "rating_scale", "question_text": "On a scale of 1 to 5, how satisfied are you with colleagues in your workplace?", "options": [1, 2, 3, 4, 5]}, {"question_number": 10, "question_type": "dropdown", "question_text": "Select the most important aspect of employee satisfaction among:", "options": ["management", "workplace", "communication", "benefits", "culture", "job", "recognition", "growth", "colleagues"]}]}';
+
+        const responseData = JSON.parse(jsonResponse);
+
+        const employeeSatisfactionQuestions =
+          responseData.employee_satisfaction_questions;
+
+        employeeSatisfactionQuestions.forEach((question, index) => {
+          // Delay the display of each question using setTimeout
+          setTimeout(() => {
+            const questionElement = document.createElement("div");
+            questionElement.classList.add("question");
+            questionElement.innerHTML = `
+          <p><b>Question ${question.question_number}:</b> ${question.question_text}</p>
+        `;
+            questionsContainer.appendChild(questionElement);
+
+            // Display options or answer textbox based on question type
+            if (question.options) {
+              const optionsList = document.createElement("ul");
+              optionsList.classList.add("options");
+
+              if (question.question_type === "multiple_choice") {
+                question.options.forEach((option) => {
+                  const optionItem = document.createElement("li");
+                  const input = document.createElement("input");
+                  input.type = "radio";
+                  input.name = `question_${question.question_number}`;
+                  input.value = option;
+                  optionItem.appendChild(input);
+                  optionItem.appendChild(document.createTextNode(option));
+                  optionsList.appendChild(optionItem);
+                });
+              } else if (question.question_type === "dropdown") {
+                const select = document.createElement("select");
+                select.name = `question_${question.question_number}`;
+                question.options.forEach((option) => {
+                  const optionElement = document.createElement("option");
+                  optionElement.value = option;
+                  optionElement.textContent = option;
+                  select.appendChild(optionElement);
+                });
+                optionsList.appendChild(select);
+              } else if (question.question_type === "rating_scale") {
+                const ratingContainer = document.createElement("div");
+                ratingContainer.classList.add("rating-container");
+
+                const ratingInput = document.createElement("input");
+                ratingInput.type = "range";
+                ratingInput.name = `question_${question.question_number}`;
+                ratingInput.min = 1;
+                ratingInput.max = 5;
+
+                const ratingValue = document.createElement("span");
+                ratingValue.textContent = "3"; // Default value
+                ratingValue.classList.add("rating-value");
+
+                ratingInput.addEventListener("input", function () {
+                  ratingValue.textContent = this.value;
+                });
+
+                ratingContainer.appendChild(ratingInput);
+                ratingContainer.appendChild(ratingValue);
+                optionsList.appendChild(ratingContainer);
+              }
+
+              questionElement.appendChild(optionsList);
+            }
+            questionElement.style.opacity = "1"; // Show the question after it's added
+          }, index * 1000); // Adjust the delay between questions
+        });
+      });
+    </script>
+          </div>
+  </body>
+</html>
